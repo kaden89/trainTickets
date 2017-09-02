@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public interface ReservationService {
     Reservation reserveTicket(int userId , int ticketId, LocalDateTime reserveTime);
-    Reservation getReservationByTicketId(int ticketId);
+    boolean isTicketReserved(int ticketId);
+    boolean isTicketReservedByUser(int ticketId, int userId);
     Reservation save(Reservation reservation);
 }

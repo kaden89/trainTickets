@@ -1,6 +1,7 @@
 package com.dkarachurin.trainTickets.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -9,18 +10,16 @@ import java.time.LocalDateTime;
 @Entity
 public class Reservation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
 
     @Column
+    @NotNull
     private LocalDateTime reservationEndTime;
-
-    @Version
-    private Integer version;
 
     public User getUser() {
         return user;

@@ -1,6 +1,7 @@
 package com.dkarachurin.trainTickets.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Denis Karachurin on 01.09.2017.
@@ -17,21 +18,15 @@ public class Ticket extends BaseEntity {
     private int placeNumber;
     @Column
     private int price;
-    @OneToOne(mappedBy = "ticket", fetch = FetchType.LAZY)
-    private Reservation reservation;
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "ticket")
+    private List<Reservation> reservation;
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User boughtUser;
-    @PrePersist
-    private void prePersist(){
-        if (reservation == null){
-            Reservation reservation = new Reservation();
-            reservation.setTicket(this);
-            setReservation(reservation);
-        }
-    }
+    @Version
+    private Integer version;
 
     public Trip getTrip() {
         return trip;
@@ -65,11 +60,11 @@ public class Ticket extends BaseEntity {
         this.price = price;
     }
 
-    public Reservation getReservation() {
+    public List<Reservation> getReservation() {
         return reservation;
     }
 
-    private void setReservation(Reservation reservation) {
+    public void setReservation(List<Reservation> reservation) {
         this.reservation = reservation;
     }
 
@@ -87,5 +82,9 @@ public class Ticket extends BaseEntity {
 
     public void setBoughtUser(User boughtUser) {
         this.boughtUser = boughtUser;
+    }
+
+    public Integer getVersion() {
+        return version;
     }
 }

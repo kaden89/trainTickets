@@ -2,8 +2,8 @@ package com.dkarachurin.trainTickets.service;
 
 
 import com.dkarachurin.trainTickets.model.Reservation;
-import com.dkarachurin.trainTickets.model.Ticket;
 import com.dkarachurin.trainTickets.repository.ReservationRepository;
+import com.dkarachurin.trainTickets.util.exceptions.ReservationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +25,27 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public Reservation reserveTicket(int userId, int ticketId, LocalDateTime reserveTime) {
-        Reservation reservation = getReservationByTicketId(ticketId);
-        reservation.setUser(userService.get(userId));
-        reservation.setTicket(ticketService.get(ticketId));
-        reservation.setReservationEndTime(reserveTime.plusMinutes(10));
-        return save(reservation);
+        if (!isTicketReserved(ticketId)){
+            Reservation reservation = new Reservation();
+            reservation.setUser(userService.get(userId));
+            reservation.setTicket(ticketService.getWithVersionIncrement(ticketId));
+            reservation.setReservationEndTime(reserveTime.plusMinutes(10));
+            return save(reservation);
+        } else {
+            throw new ReservationException(String.format("Ticket with id %d already reserved", ticketId));
+        }
     }
 
-    public Reservation getReservationByTicketId(int ticketId) {
-        return reservationRepository.getReservationByTicketId(ticketId);
+    @Override
+    public boolean isTicketReserved(int ticketId) {
+        return reservationRepository.isTicketReserved(ticketId, LocalDateTime.now());
     }
+
+    @Override
+    public boolean isTicketReservedByUser(int ticketId, int userId) {
+        return reservationRepository.isTicketReservedByUser(ticketId, userId, LocalDateTime.now());
+    }
+
 
     @Override
     public Reservation save(Reservation reservation) {

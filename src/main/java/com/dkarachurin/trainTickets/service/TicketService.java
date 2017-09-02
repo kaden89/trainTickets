@@ -7,4 +7,5 @@ import com.dkarachurin.trainTickets.model.Ticket;
  */
 public interface TicketService extends CrudService<Ticket> {
     void buyTicket(int ticketId, int userId);
+    Ticket getWithVersionIncrement(int ticketId);
 }
