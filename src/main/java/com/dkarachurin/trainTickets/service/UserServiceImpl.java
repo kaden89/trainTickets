@@ -1,7 +1,6 @@
 package com.dkarachurin.trainTickets.service;
 
 
-import com.dkarachurin.trainTickets.model.City;
 import com.dkarachurin.trainTickets.model.User;
 import com.dkarachurin.trainTickets.util.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class UserServiceImpl extends CrudServiceImpl<User> implements UserService{
+public class UserServiceImpl extends AbstractCrudServiceImpl<User> implements UserService{
     @Override
     public User getByUsername(String username) throws NotFoundException {
         return null;

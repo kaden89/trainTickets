@@ -11,5 +11,5 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class TrainServiceImpl extends CrudServiceImpl<Train> implements TrainService{
+public class TrainServiceImpl extends AbstractCrudServiceImpl<Train> implements TrainService{
 }

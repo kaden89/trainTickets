@@ -11,5 +11,5 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class WagonServiceImpl extends CrudServiceImpl<Wagon> implements WagonService{
+public class WagonServiceImpl extends AbstractCrudServiceImpl<Wagon> implements WagonService{
 }

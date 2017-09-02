@@ -12,5 +12,13 @@ import java.util.List;
 @Entity
 public class Train extends BaseEntity {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "train")
-    List<Wagon> wagons;
+    private List<Wagon> wagons;
+
+    public List<Wagon> getWagons() {
+        return wagons;
+    }
+
+    public void setWagons(List<Wagon> wagons) {
+        this.wagons = wagons;
+    }
 }

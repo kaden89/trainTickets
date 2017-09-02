@@ -50,6 +50,11 @@ public class User extends BaseEntity {
     @BatchSize(size = 200)
     private List<Role> roles;
 
+    @Column(name = "balance")
+    private int balance;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "boughtUser")
+    private List<Ticket> buyedTickets;
 
     public User() {
     }
@@ -119,6 +124,22 @@ public class User extends BaseEntity {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public List<Ticket> getBuyedTickets() {
+        return buyedTickets;
+    }
+
+    public void setBuyedTickets(List<Ticket> buyedTickets) {
+        this.buyedTickets = buyedTickets;
     }
 
     @Override

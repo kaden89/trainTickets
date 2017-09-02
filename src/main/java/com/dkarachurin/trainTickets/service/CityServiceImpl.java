@@ -11,5 +11,5 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class CityServiceImpl extends CrudServiceImpl<City> implements CityService{
+public class CityServiceImpl extends AbstractCrudServiceImpl<City> implements CityService{
 }

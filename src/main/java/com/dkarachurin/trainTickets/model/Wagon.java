@@ -12,8 +12,34 @@ public class Wagon extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "train_id")
     private Train train;
+
     @Enumerated(EnumType.STRING)
     private WagonType type;
+
     @Column
     private int seatsCount;
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
+    public WagonType getType() {
+        return type;
+    }
+
+    public void setType(WagonType type) {
+        this.type = type;
+    }
+
+    public int getSeatsCount() {
+        return seatsCount;
+    }
+
+    public void setSeatsCount(int seatsCount) {
+        this.seatsCount = seatsCount;
+    }
 }

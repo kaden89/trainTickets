@@ -3,14 +3,13 @@ package com.dkarachurin.trainTickets.service;
 import com.dkarachurin.trainTickets.util.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Denis Karachurin on 01.09.2017.
  */
-public abstract class CrudServiceImpl<T> implements CrudService<T> {
+public abstract class AbstractCrudServiceImpl<T> implements CrudService<T> {
     @Autowired
     private CrudRepository<T, Integer> repository;
 

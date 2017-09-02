@@ -9,11 +9,40 @@ import java.time.LocalDateTime;
 @Entity
 public class Reservation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @OneToOne
     @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
+
     @Column
     private LocalDateTime reservationEndTime;
+
+    @Version
+    private Integer version;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public LocalDateTime getReservationEndTime() {
+        return reservationEndTime;
+    }
+
+    public void setReservationEndTime(LocalDateTime reservationEndTime) {
+        this.reservationEndTime = reservationEndTime;
+    }
 }

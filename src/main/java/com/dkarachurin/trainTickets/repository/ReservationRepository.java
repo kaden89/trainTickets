@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by Denis Karachurin on 01.09.2017.
  */
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
+    Reservation getReservationByTicketId(int ticketId);
 }
