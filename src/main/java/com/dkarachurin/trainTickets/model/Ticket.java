@@ -23,7 +23,7 @@ public class Ticket extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "bought_user_id")
     private User boughtUser;
     @Version
     private Integer version;

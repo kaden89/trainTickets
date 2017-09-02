@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by Denis Karachurin on 01.09.2017.
@@ -33,6 +34,11 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
     @Override
     public Ticket getWithVersionIncrement(int ticketId) {
         return repository.getWithVersionIncrement(ticketId);
+    }
+
+    @Override
+    public List<Ticket> getAllAvailableByTrip(int tripId) {
+        return repository.getAllAvailableByTrip(tripId);
     }
 
     @Override

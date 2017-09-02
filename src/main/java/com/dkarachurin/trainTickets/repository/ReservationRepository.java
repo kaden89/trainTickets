@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
     Reservation getByTicketId(int ticketId);
 
-    @Query("SELECT CASE WHEN MAX(r.reservationEndTime) >= :dateTime THEN true ELSE false END  FROM Reservation r WHERE r.ticket.id = :id")
-    boolean isTicketReserved(@Param("id")Integer ticketId, @Param("dateTime")LocalDateTime dateTime);
+    @Query("SELECT CASE WHEN MAX(r.reservationEndTime) >= CURRENT_TIMESTAMP THEN true ELSE false END  FROM Reservation r WHERE r.ticket.id = :id")
+    boolean isTicketReserved(@Param("id")Integer ticketId);
 
-    @Query("SELECT CASE WHEN COUNT (r.id) > 0 THEN true ELSE false END FROM Reservation r WHERE r.ticket.id = :ticketId AND r.user.id = :userId AND r.reservationEndTime >= :dateTime")
-    boolean isTicketReservedByUser(@Param("ticketId")Integer ticketId, @Param("userId")Integer userId, @Param("dateTime")LocalDateTime dateTime);
+    @Query("SELECT CASE WHEN COUNT (r.id) > 0 THEN true ELSE false END FROM Reservation r WHERE r.ticket.id = :ticketId AND r.user.id = :userId AND r.reservationEndTime >= CURRENT_TIMESTAMP")
+    boolean isTicketReservedByUser(@Param("ticketId")Integer ticketId, @Param("userId")Integer userId);
 }
