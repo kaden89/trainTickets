@@ -3,13 +3,16 @@ package com.dkarachurin.trainTickets.model;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
  * Created by Denis Karachurin on 01.09.2017.
  */
 @Entity
+@Table(name = "trip", indexes = {@Index(name = "departureDate_idx",  columnList="departureDate", unique = false)})
 public class Trip extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "train_id", nullable = false)
@@ -21,7 +24,9 @@ public class Trip extends BaseEntity {
     @JoinColumn(name = "destination_id", nullable = false)
     private City destination;
     @Column
-    private LocalDateTime departureTime;
+    private LocalDate departureDate;
+    @Column
+    private LocalTime departureTime;
     @Column
     private LocalDateTime destinationTime;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "trip")
@@ -51,11 +56,19 @@ public class Trip extends BaseEntity {
         this.destination = destination;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 

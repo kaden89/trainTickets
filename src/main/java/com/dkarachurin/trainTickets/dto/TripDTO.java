@@ -1,6 +1,8 @@
 package com.dkarachurin.trainTickets.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Created by Denis Karachurin on 03.09.2017.
@@ -9,7 +11,8 @@ public class TripDTO {
     private String trainNumber;
     private String departure;
     private String destination;
-    private LocalDateTime departureTime;
+    private LocalDate departureDate;
+    private LocalTime departureTime;
     private LocalDateTime destinationTime;
 
     public String getTrainNumber() {
@@ -36,11 +39,19 @@ public class TripDTO {
         this.destination = destination;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
 

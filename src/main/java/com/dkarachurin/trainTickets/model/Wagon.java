@@ -1,7 +1,5 @@
 package com.dkarachurin.trainTickets.model;
 
-import org.hibernate.annotations.BatchSize;
-
 import javax.persistence.*;
 
 /**

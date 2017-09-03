@@ -1,4 +1,4 @@
-package com.dkarachurin.trainTickets.testData;
+package com.dkarachurin.trainTickets;
 
 /**
  * Created by Denis Karachurin on 01.09.2017.

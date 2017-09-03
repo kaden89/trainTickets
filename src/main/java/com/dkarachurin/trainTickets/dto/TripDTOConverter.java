@@ -13,6 +13,7 @@ public class TripDTOConverter implements DTOConverter<Trip, TripDTO> {
         TripDTO tripDTO = new TripDTO();
         tripDTO.setTrainNumber(trip.getTrain().getNumber());
         tripDTO.setDeparture(trip.getDeparture().getName());
+        tripDTO.setDepartureDate(trip.getDepartureDate());
         tripDTO.setDepartureTime(trip.getDepartureTime());
         tripDTO.setDestination(trip.getDestination().getName());
         tripDTO.setDestinationTime(trip.getDestinationTime());

@@ -1,4 +1,4 @@
-package com.dkarachurin.trainTickets.services;
+package com.dkarachurin.trainTickets;
 
 import com.dkarachurin.trainTickets.model.*;
 import com.dkarachurin.trainTickets.service.ReservationService;
@@ -7,7 +7,6 @@ import com.dkarachurin.trainTickets.service.TripService;
 import com.dkarachurin.trainTickets.service.UserService;
 import com.dkarachurin.trainTickets.util.exceptions.BalanceException;
 import com.dkarachurin.trainTickets.util.exceptions.ReservationException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-import static com.dkarachurin.trainTickets.testData.TestData.*;
+import static com.dkarachurin.trainTickets.TestData.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -87,7 +86,7 @@ public class ServicesTest {
 
 	@Test
 	public void shouldReturnTicketsOnDate() {
-		List<Trip> trips = tripService.getAllOnDateByCities(LocalDateTime.of(2000, 1, 1, 0, 0, 0), 10003, 10002);
+		List<Trip> trips = tripService.getAllOnDateByCities(LocalDate.of(2017, 9, 1), 10003, 10002);
 		assertTrue(!trips.isEmpty());
 	}
 

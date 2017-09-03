@@ -3,6 +3,8 @@ package com.dkarachurin.trainTickets.dto;
 import com.dkarachurin.trainTickets.model.Ticket;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by Denis Karachurin on 03.09.2017.
  */
@@ -18,7 +20,7 @@ public class TicketDTOConverter implements DTOConverter<Ticket, TicketDTO> {
         ticketDTO.setPlaceType(ticket.getWagon().getType().toString());
         ticketDTO.setPrice(ticket.getPrice());
         ticketDTO.setDeparture(ticket.getTrip().getDeparture().getName());
-        ticketDTO.setDepartureTime(ticket.getTrip().getDepartureTime());
+        ticketDTO.setDepartureTime(LocalDateTime.of(ticket.getTrip().getDepartureDate(),ticket.getTrip().getDepartureTime()));
         ticketDTO.setDestination(ticket.getTrip().getDestination().getName());
         ticketDTO.setDestinationTime(ticket.getTrip().getDestinationTime());
         return ticketDTO;

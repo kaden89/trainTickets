@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class TripServiceImpl extends AbstractCrudServiceImpl<Trip> implements Tr
     private TripRepository repository;
 
     @Override
-    public List<Trip> getAllOnDateByCities(LocalDateTime time, int departureId, int destinationId) {
-        return repository.getAllOnDateByCities(time, departureId, destinationId);
+    public List<Trip> getAllOnDateByCities(LocalDate date, int departureId, int destinationId) {
+        return repository.getAllOnDateByCities(date, departureId, destinationId);
     }
 }

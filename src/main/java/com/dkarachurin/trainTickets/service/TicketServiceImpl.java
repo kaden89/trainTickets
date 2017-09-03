@@ -38,7 +38,7 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
     }
 
     @Override
-    public void buyTicket(int ticketId, int userId) {
+    public Ticket buyTicket(int ticketId, int userId) {
         Ticket ticket = get(ticketId);
         User user = userService.get(userId);
 
@@ -50,6 +50,7 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
 
         userService.update(user);
         update(ticket);
+        return ticket;
     }
 
 
