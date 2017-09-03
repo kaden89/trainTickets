@@ -9,6 +9,8 @@ import javax.persistence.*;
  */
 @Entity
 public class Wagon extends BaseEntity {
+    @Column
+    private String number;
     @ManyToOne
     @JoinColumn(name = "train_id")
     private Train train;
@@ -18,6 +20,14 @@ public class Wagon extends BaseEntity {
 
     @Column
     private int seatsCount;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public Train getTrain() {
         return train;

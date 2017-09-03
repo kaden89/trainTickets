@@ -8,6 +8,8 @@ import java.util.List;
  */
 @Entity
 public class Ticket extends BaseEntity {
+    @Column
+    private String number;
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
@@ -27,6 +29,14 @@ public class Ticket extends BaseEntity {
     private User boughtUser;
     @Version
     private Integer version;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public Trip getTrip() {
         return trip;

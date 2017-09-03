@@ -1,11 +1,11 @@
 package com.dkarachurin.trainTickets.services;
 
-import com.dkarachurin.trainTickets.model.Reservation;
-import com.dkarachurin.trainTickets.model.Ticket;
-import com.dkarachurin.trainTickets.model.TicketStatus;
+import com.dkarachurin.trainTickets.model.*;
 import com.dkarachurin.trainTickets.service.ReservationService;
 import com.dkarachurin.trainTickets.service.TicketService;
+import com.dkarachurin.trainTickets.service.TripService;
 import com.dkarachurin.trainTickets.service.UserService;
+import com.dkarachurin.trainTickets.util.exceptions.BalanceException;
 import com.dkarachurin.trainTickets.util.exceptions.ReservationException;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +35,8 @@ public class ServicesTest {
 	private TicketService ticketService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TripService tripService;
 
 	@Test
 	public void shouldCreateReservationAndIncrementTicketVersion() {
@@ -62,7 +64,15 @@ public class ServicesTest {
 	@Test(expected = ReservationException.class)
 	public void shouldThrowExceptionWhenTryToReserveAlreadyReservedTicket() {
 		reservationService.reserveTicket(USER_ID, TICKET1_ID);
+		reservationService.reserveTicket(ADMIN_ID, TICKET1_ID);
+	}
+	@Test(expected = BalanceException.class)
+	public void shouldThrowExceptionWhenTryToBuyWithoutMoney() {
 		reservationService.reserveTicket(USER_ID, TICKET1_ID);
+		User user = userService.get(USER_ID);
+		user.setBalance(0);
+		userService.update(user);
+		ticketService.buyTicket(TICKET1_ID, USER_ID);
 	}
 
 	@Test
@@ -75,6 +85,11 @@ public class ServicesTest {
 		assertEquals(allTickets.size()-2, availableTickets.size());
 	}
 
+	@Test
+	public void shouldReturnTicketsOnDate() {
+		List<Trip> trips = tripService.getAllOnDateByCities(LocalDateTime.of(2000, 1, 1, 0, 0, 0), 10003, 10002);
+		assertTrue(!trips.isEmpty());
+	}
 
 
 

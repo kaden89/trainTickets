@@ -3,8 +3,8 @@ package com.dkarachurin.trainTickets.util.exceptions;
 /**
  * Created by Denis Karachurin on 02.09.2017.
  */
-public class BuyingProcessException extends RuntimeException {
-    public BuyingProcessException(String message) {
+public class BalanceException extends RuntimeException {
+    public BalanceException(String message) {
         super(message);
     }
 }

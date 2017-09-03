@@ -1,20 +1,16 @@
 package com.dkarachurin.trainTickets.service;
 
 
-import com.dkarachurin.trainTickets.model.Reservation;
 import com.dkarachurin.trainTickets.model.Ticket;
 import com.dkarachurin.trainTickets.model.TicketStatus;
 import com.dkarachurin.trainTickets.model.User;
 import com.dkarachurin.trainTickets.repository.TicketRepository;
-import com.dkarachurin.trainTickets.util.exceptions.BuyingProcessException;
+import com.dkarachurin.trainTickets.util.exceptions.BalanceException;
 import com.dkarachurin.trainTickets.util.exceptions.ReservationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.LockModeType;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -58,7 +54,7 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
 
 
     private boolean userCanBuyTicket(User user, Ticket ticket){
-        return isTicketReservedByUser(ticket.getId(), user.getId()) && userHaveEnoughMoney(user, ticket);
+        return isTicketReservedByUser(ticket.getId(), user.getId()) && isUserHaveEnoughMoney(user, ticket);
     }
 
 
@@ -70,11 +66,11 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
         }
     }
 
-    private boolean userHaveEnoughMoney(User user, Ticket ticket){
+    private boolean isUserHaveEnoughMoney(User user, Ticket ticket){
         if (user.getBalance() >= ticket.getPrice()){
             return true;
         } else {
-            throw new BuyingProcessException("User does not have enough money in the account");
+            throw new BalanceException("User does not have enough money in the account");
         }
     }
 }

@@ -1,9 +1,6 @@
 package com.dkarachurin.trainTickets.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -11,8 +8,18 @@ import java.util.List;
  */
 @Entity
 public class Train extends BaseEntity {
+    @Column
+    private String number;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "train")
     private List<Wagon> wagons;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public List<Wagon> getWagons() {
         return wagons;

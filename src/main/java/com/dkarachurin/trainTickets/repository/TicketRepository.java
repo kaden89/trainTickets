@@ -17,6 +17,6 @@ public interface TicketRepository extends CrudRepository<Ticket, Integer> {
     @Query("SELECT t FROM Ticket t WHERE t.id = :ticketId")
     Ticket getWithVersionIncrement(@Param("ticketId")Integer ticketId);
 
-    @Query("SELECT t FROM Ticket t LEFT JOIN t.reservation r WHERE t.trip.id = :tripId AND (t.reservation IS EMPTY OR r.reservationEndTime < CURRENT_TIMESTAMP) AND t.status <> 'SOLD'")
+    @Query("SELECT t FROM Ticket t LEFT JOIN t.reservation r WHERE t.trip.id = :tripId AND (t.reservation IS EMPTY OR r.reservationEndTime < CURRENT_TIMESTAMP) AND t.status <> com.dkarachurin.trainTickets.model.TicketStatus.SOLD")
     List<Ticket> getAllAvailableByTrip(@Param("tripId")Integer tripId);
 }
