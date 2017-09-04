@@ -22,12 +22,17 @@ public class Ticket extends BaseEntity {
     private int price;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "ticket")
     private List<Reservation> reservation;
-    @ManyToOne
-    @JoinColumn(name = "bought_user_id")
-    private User boughtUser;
+    @Enumerated(EnumType.STRING)
+    private TicketStatus status;
     @Version
     private Integer version;
 
+    @PrePersist
+    private void prePersist(){
+        if (isNew()){
+            this.setStatus(TicketStatus.AVAILABLE);
+        }
+    }
     public String getNumber() {
         return number;
     }
@@ -76,15 +81,15 @@ public class Ticket extends BaseEntity {
         this.reservation = reservation;
     }
 
-    public User getBoughtUser() {
-        return boughtUser;
-    }
-
-    public void setBoughtUser(User boughtUser) {
-        this.boughtUser = boughtUser;
-    }
-
     public Integer getVersion() {
         return version;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 }

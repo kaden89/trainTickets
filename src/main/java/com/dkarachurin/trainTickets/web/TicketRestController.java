@@ -8,10 +8,7 @@ import com.dkarachurin.trainTickets.dto.TripDTO;
 import com.dkarachurin.trainTickets.model.Reservation;
 import com.dkarachurin.trainTickets.model.Ticket;
 import com.dkarachurin.trainTickets.model.Trip;
-import com.dkarachurin.trainTickets.service.ReservationService;
-import com.dkarachurin.trainTickets.service.TicketService;
-import com.dkarachurin.trainTickets.service.TripService;
-import com.dkarachurin.trainTickets.service.UserService;
+import com.dkarachurin.trainTickets.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -41,6 +38,8 @@ public class TicketRestController {
     private ReservationService reservationService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TicketTransactionService ticketTransactionService;
 
     @GetMapping
     Collection<TripDTO> getTrips(@RequestParam("departureId") int departureId,
@@ -59,7 +58,7 @@ public class TicketRestController {
     @PostMapping(value = "/{tripId}/tickets/{ticketId}/buy")
     @ResponseStatus(value = HttpStatus.OK)
     void buyTicket(@PathVariable("ticketId") int ticketId, Principal principal){
-        ticketDTOConverter.convert(ticketService.buyTicket(ticketId, userService.getByUsername(principal.getName()).getId()));
+        ticketTransactionService.buyTicket(ticketId, userService.getByUsername(principal.getName()).getId());
     }
 
 

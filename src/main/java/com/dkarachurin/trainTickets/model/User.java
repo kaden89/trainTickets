@@ -53,9 +53,6 @@ public class User extends BaseEntity {
     @Column(name = "balance")
     private int balance;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "boughtUser")
-    private List<Ticket> buyedTickets;
-
     public User() {
     }
 
@@ -132,14 +129,6 @@ public class User extends BaseEntity {
 
     public void setBalance(int balance) {
         this.balance = balance;
-    }
-
-    public List<Ticket> getBuyedTickets() {
-        return buyedTickets;
-    }
-
-    public void setBuyedTickets(List<Ticket> buyedTickets) {
-        this.buyedTickets = buyedTickets;
     }
 
     @Override
