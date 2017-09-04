@@ -6,14 +6,11 @@ DELETE FROM TRAIN;
 DELETE FROM USERS;
 DELETE FROM CITY;
 
-
-
-
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO USERS(ID, EMAIL, ENABLED, FULL_NAME, PASSPORT, PASSWORD, USERNAME, BALANCE)
-VALUES (10000,'user@yandex.ru', TRUE , 'FIO USER', '1234567890', 'password', 'USER', 5000),
-       (10001,'admin@yandex.ru', TRUE , 'FIO ADMIN', '0101001010', 'password', 'ADMIN', 5000);
+VALUES (10000,'user@yandex.ru', TRUE , 'FIO USER', '1234567890', 'password', 'User', 5000),
+       (10001,'admin@yandex.ru', TRUE , 'FIO ADMIN', '0101001010', 'password', 'Admin', 5000);
 
 INSERT INTO CITY(ID, NAME)
 VALUES (10002, 'Spb'),

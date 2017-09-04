@@ -22,9 +22,4 @@ public class UserServiceImpl extends AbstractCrudServiceImpl<User> implements Us
     public User getByUsername(String username) throws NotFoundException {
         return repository.getByUsername(username);
     }
-
-    @Override
-    public void enable(int id, boolean enable) {
-
-    }
 }

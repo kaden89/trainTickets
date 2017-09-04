@@ -24,7 +24,7 @@ public class ReservationServiceImpl implements ReservationService{
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Value("${application.reservationMinutesDuration}")
+    @Value("${reservation.durationInMinutes}")
     private int reservationMinutesDuration;
 
     @Override

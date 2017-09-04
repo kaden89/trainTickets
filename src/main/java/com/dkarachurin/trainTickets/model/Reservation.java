@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  * Created by Denis Karachurin on 01.09.2017.
  */
 @Entity
+@Table(name = "reservation", indexes = {@Index(name = "reservationEndTime_idx",  columnList="reservationEndTime", unique = false)})
 public class Reservation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

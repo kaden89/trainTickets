@@ -9,7 +9,4 @@ import com.dkarachurin.trainTickets.util.exceptions.NotFoundException;
 public interface UserService extends CrudService<User>{
 
     User getByUsername(String username) throws NotFoundException;
-
-    void enable(int id, boolean enable);
-
 }

@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest().fullyAuthenticated()
-                .and().httpBasic();
+                .and().httpBasic()
+                .and().csrf().disable();
     }
 }

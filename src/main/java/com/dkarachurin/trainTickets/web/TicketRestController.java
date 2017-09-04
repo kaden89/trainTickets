@@ -1,7 +1,10 @@
 package com.dkarachurin.trainTickets.web;
 
 
-import com.dkarachurin.trainTickets.dto.*;
+import com.dkarachurin.trainTickets.dto.DTOConverter;
+import com.dkarachurin.trainTickets.dto.ReservationDTO;
+import com.dkarachurin.trainTickets.dto.TicketDTO;
+import com.dkarachurin.trainTickets.dto.TripDTO;
 import com.dkarachurin.trainTickets.model.Reservation;
 import com.dkarachurin.trainTickets.model.Ticket;
 import com.dkarachurin.trainTickets.model.Trip;
@@ -11,6 +14,7 @@ import com.dkarachurin.trainTickets.service.TripService;
 import com.dkarachurin.trainTickets.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,8 +34,6 @@ public class TicketRestController {
     @Autowired
     private DTOConverter<Reservation, ReservationDTO> reservationDTOConverter;
     @Autowired
-    private DTOConverter<Ticket, BoughtTicketDTO> boughtTicketDTOConverter;
-    @Autowired
     private TripService tripService;
     @Autowired
     private TicketService ticketService;
@@ -43,7 +45,7 @@ public class TicketRestController {
     @GetMapping
     Collection<TripDTO> getTrips(@RequestParam("departureId") int departureId,
                                  @RequestParam("destinationId") int destinationId,
-                                 @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date){
+                                 @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date){
         return tripDTOConverter.convertCollection(tripService.getAllOnDateByCities(date, departureId, destinationId));
     }
     @GetMapping(value = "/{tripId}/tickets")
@@ -55,8 +57,9 @@ public class TicketRestController {
         return reservationDTOConverter.convert(reservationService.reserveTicket(userService.getByUsername(principal.getName()).getId(), ticketId));
     }
     @PostMapping(value = "/{tripId}/tickets/{ticketId}/buy")
-    BoughtTicketDTO buyTicket(@PathVariable("ticketId") int ticketId, Principal principal){
-        return boughtTicketDTOConverter.convert(ticketService.buyTicket(ticketId, userService.getByUsername(principal.getName()).getId()));
+    @ResponseStatus(value = HttpStatus.OK)
+    void buyTicket(@PathVariable("ticketId") int ticketId, Principal principal){
+        ticketDTOConverter.convert(ticketService.buyTicket(ticketId, userService.getByUsername(principal.getName()).getId()));
     }
 
 

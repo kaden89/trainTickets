@@ -1,6 +1,9 @@
 package com.dkarachurin.trainTickets;
 
-import com.dkarachurin.trainTickets.model.*;
+import com.dkarachurin.trainTickets.model.Reservation;
+import com.dkarachurin.trainTickets.model.Ticket;
+import com.dkarachurin.trainTickets.model.Trip;
+import com.dkarachurin.trainTickets.model.User;
 import com.dkarachurin.trainTickets.service.ReservationService;
 import com.dkarachurin.trainTickets.service.TicketService;
 import com.dkarachurin.trainTickets.service.TripService;
@@ -52,7 +55,6 @@ public class ServicesTest {
 		reservationService.reserveTicket(USER_ID, TICKET1_ID);
 		ticketService.buyTicket(TICKET1_ID, USER_ID);
 		assertThat(ticketService.get(TICKET1_ID).getBoughtUser(), is(userService.get(USER_ID)));
-		assertThat(ticketService.get(TICKET1_ID).getStatus(), is(TicketStatus.SOLD));
 	}
 
 	@Test(expected = ReservationException.class)
@@ -76,17 +78,17 @@ public class ServicesTest {
 
 	@Test
 	public void shouldNotReturnReservedAndSoldTickets() {
-		List<Ticket> allTickets = ticketService.getAllAvailableByTrip(10101);
+		List<Ticket> allTickets = ticketService.getAllAvailableByTrip(TRIP1_ID);
 		reservationService.reserveTicket(USER_ID, TICKET1_ID);
 		ticketService.buyTicket(TICKET1_ID, USER_ID);
 		reservationService.reserveTicket(USER_ID, TICKET2_ID);
-		List<Ticket> availableTickets = ticketService.getAllAvailableByTrip(10101);
+		List<Ticket> availableTickets = ticketService.getAllAvailableByTrip(TRIP1_ID);
 		assertEquals(allTickets.size()-2, availableTickets.size());
 	}
 
 	@Test
 	public void shouldReturnTicketsOnDate() {
-		List<Trip> trips = tripService.getAllOnDateByCities(LocalDate.of(2017, 9, 1), 10003, 10002);
+		List<Trip> trips = tripService.getAllOnDateByCities(LocalDate.parse(DATE_WITH_TRIPS), UFA_ID, SPB_ID);
 		assertTrue(!trips.isEmpty());
 	}
 

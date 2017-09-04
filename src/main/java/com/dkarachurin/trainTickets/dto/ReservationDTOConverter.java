@@ -9,7 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReservationDTOConverter implements DTOConverter<Reservation, ReservationDTO> {
     @Override
-    public ReservationDTO convert(Reservation entity) {
-        return null;
+    public ReservationDTO convert(Reservation reservation) {
+        ReservationDTO reservationDTO = new ReservationDTO();
+        reservationDTO.setUserFullName(reservation.getUser().getFullName());
+        reservationDTO.setTicketNumber(reservation.getTicket().getNumber());
+        reservationDTO.setReservationEndTime(reservation.getReservationEndTime());
+        return reservationDTO;
     }
 }

@@ -22,8 +22,6 @@ public class Ticket extends BaseEntity {
     private int price;
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "ticket")
     private List<Reservation> reservation;
-    @Enumerated(EnumType.STRING)
-    private TicketStatus status;
     @ManyToOne
     @JoinColumn(name = "bought_user_id")
     private User boughtUser;
@@ -76,14 +74,6 @@ public class Ticket extends BaseEntity {
 
     public void setReservation(List<Reservation> reservation) {
         this.reservation = reservation;
-    }
-
-    public TicketStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TicketStatus status) {
-        this.status = status;
     }
 
     public User getBoughtUser() {

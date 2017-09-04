@@ -2,7 +2,6 @@ package com.dkarachurin.trainTickets.service;
 
 
 import com.dkarachurin.trainTickets.model.Ticket;
-import com.dkarachurin.trainTickets.model.TicketStatus;
 import com.dkarachurin.trainTickets.model.User;
 import com.dkarachurin.trainTickets.repository.TicketRepository;
 import com.dkarachurin.trainTickets.util.exceptions.BalanceException;
@@ -45,11 +44,11 @@ public class TicketServiceImpl extends AbstractCrudServiceImpl<Ticket> implement
         if (userCanBuyTicket(user, ticket)){
             user.setBalance(user.getBalance() - ticket.getPrice());
             ticket.setBoughtUser(user);
-            ticket.setStatus(TicketStatus.SOLD);
         }
 
         userService.update(user);
         update(ticket);
+
         return ticket;
     }
 
